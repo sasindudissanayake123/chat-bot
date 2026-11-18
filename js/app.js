@@ -1,5 +1,4 @@
-
-const API_KEY = "YOUR_NEW_API_KEY";
+const API_KEY = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"; 
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("user-input");
@@ -32,16 +31,15 @@ async function sendBtn() {
 
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    try {
+ try {
 
         const response = await fetch(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${API_KEY}`,
             {
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "application/json",
-                    "X-goog-api-key": API_KEY
+                    "Content-Type": "application/json"
                 },
 
                 body: JSON.stringify({
@@ -64,8 +62,8 @@ async function sendBtn() {
             throw new Error(result.error?.message || "API Error");
         }
 
-        botMessage.textContent =
-            result.candidates[0].content.parts[0].text;
+        
+        botMessage.textContent = result.candidates[0].content.parts[0].text;
 
     } catch (error) {
 
@@ -74,7 +72,6 @@ async function sendBtn() {
         console.log(error);
 
     }
-
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
